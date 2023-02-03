@@ -11,8 +11,12 @@ class BrieUpdater: ItemUpdater {
 
     let item: Item
 
-    init(item: Item) {
+    required init(item: Item) {
         self.item = item
+    }
+
+    static func make(item: Item) -> Self {
+        return self.init(item: item)
     }
 
     func updateQuality() {

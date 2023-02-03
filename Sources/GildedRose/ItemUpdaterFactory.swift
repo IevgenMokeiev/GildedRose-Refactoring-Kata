@@ -10,17 +10,22 @@ import Foundation
 class ItemUpdaterFactory {
 
     static func itemUpdater(for item: Item) -> ItemUpdater {
+        let type = type(for: item)
+        return type.make(item: item)
+    }
+
+    static func type(for item: Item) -> ItemUpdater.Type {
         let itemType = itemType(for: item)
 
         switch itemType {
         case .agedBrie:
-            return BrieUpdater(item: item)
+            return BrieUpdater.self
         case .sulfuras:
-            return SulfurasUpdater(item: item)
+            return SulfurasUpdater.self
         case .backstagePass:
-            return BackstagePassUpdater(item: item)
+            return BackstagePassUpdater.self
         case .generic:
-            return GenericUpdater(item: item)
+            return GenericUpdater.self
         }
     }
 

@@ -7,6 +7,8 @@
 
 protocol ItemUpdater {
 
+    static func make(item: Item) -> Self
+
     var item: Item { get }
 
     func updateQuality()
