@@ -32,7 +32,7 @@ public class GildedRose {
                 upgradeQuality(for: item)
             }
         case .generic:
-            degradeQuality(for: item)
+            itemUpdater.updateQuality()
         case .sulfuras:
             break
         }
@@ -43,7 +43,7 @@ public class GildedRose {
         case .agedBrie:
             itemUpdater.updateSellIn()
         case .generic:
-            decreaseSellIn(for: item)
+            itemUpdater.updateSellIn()
         case .sulfuras:
             break
         case .backstagePass:
@@ -58,7 +58,7 @@ public class GildedRose {
             case .backstagePass:
                 item.quality = 0
             case .generic:
-                degradeQuality(for: item)
+                itemUpdater.updateQualityExpired()
             case .sulfuras:
                 break
             }
