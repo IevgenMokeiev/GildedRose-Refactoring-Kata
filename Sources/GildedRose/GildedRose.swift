@@ -14,12 +14,13 @@ public class GildedRose {
     // MARK :- Private
 
     private func updateQuality(for item: Item) {
-        let itemType = Self.itemType(from: item)
+        let itemType = Self.itemType(for: item)
+        let itemUpdater = Self.itemUpdater(for: item)
 
         // Update quiality before sell in
         switch itemType {
         case .agedBrie:
-            upgradeQuality(for: item)
+            itemUpdater.updateQuality()
         case .backstagePass:
             upgradeQuality(for: item)
 
@@ -37,7 +38,15 @@ public class GildedRose {
         }
 
         // Update sell in
-        if itemType != .sulfuras {
+
+        switch itemType {
+        case .agedBrie:
+            itemUpdater.updateSellIn()
+        case .generic:
+            decreaseSellIn(for: item)
+        case .sulfuras:
+            break
+        case .backstagePass:
             decreaseSellIn(for: item)
         }
 
@@ -45,7 +54,7 @@ public class GildedRose {
         if item.sellIn < 0 {
             switch itemType {
             case .agedBrie:
-                upgradeQuality(for: item)
+                itemUpdater.updateQualityExpired()
             case .backstagePass:
                 item.quality = 0
             case .generic:
@@ -76,7 +85,18 @@ public class GildedRose {
 
     // MARK :- Utility
 
-    private static func itemType(from item: Item) -> ItemType {
+    private static func itemType(for item: Item) -> ItemType {
         return ItemType(rawValue: item.name) ?? .generic
+    }
+
+    private static func itemUpdater(for item: Item) -> ItemUpdater {
+        let itemType = itemType(for: item)
+
+        switch itemType {
+        case .agedBrie:
+            return BrieItemUpdater(item: item)
+        default:
+            return GenericItemUpdater(item: item)
+        }
     }
 }
