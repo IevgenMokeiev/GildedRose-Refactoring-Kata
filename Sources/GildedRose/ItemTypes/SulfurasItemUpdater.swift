@@ -1,13 +1,11 @@
 //
-//  GenericItemUpdater.swift
+//  SulfurasItemUpdater.swift
 //  
 //
 //  Created by Yevhen Mokeiev on 03.02.2023.
 //
 
-import Foundation
-
-class GenericItemUpdater: ItemUpdater {
+class SulfurasItemUpdater: ItemUpdater {
 
     let item: Item
 
@@ -16,14 +14,12 @@ class GenericItemUpdater: ItemUpdater {
     }
 
     func updateQuality() {
-        degradeQuality()
     }
 
     func updateSellIn() {
-        decreaseSellIn()
     }
 
     func updateQualityExpired() {
-        degradeQuality()
     }
 }
+
