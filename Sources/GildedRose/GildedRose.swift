@@ -16,13 +16,8 @@ public class GildedRose {
     private func updateQuality(for item: Item) {
         let itemType = Self.itemType(from: item)
 
-        if itemType != .agedBrie, itemType != .backstagePass {
-            if item.quality > 0 {
-                if itemType != .sulfuras {
-                    item.quality = item.quality - 1
-                }
-            }
-        } else {
+        switch itemType {
+        case .agedBrie, .backstagePass:
             if item.quality < 50 {
                 item.quality = item.quality + 1
 
@@ -38,6 +33,12 @@ public class GildedRose {
                             item.quality = item.quality + 1
                         }
                     }
+                }
+            }
+        case .sulfuras, .generic:
+            if item.quality > 0 {
+                if itemType != .sulfuras {
+                    item.quality = item.quality - 1
                 }
             }
         }
