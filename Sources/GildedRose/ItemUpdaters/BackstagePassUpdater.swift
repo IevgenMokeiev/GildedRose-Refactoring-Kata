@@ -9,6 +9,9 @@ import Foundation
 
 class BackstagePassUpdater: ItemUpdater {
 
+    static let firstQualityThreshold = 11
+    static let secondQualityThreshold = 6
+
     let item: Item
 
     required init(item: Item) {
@@ -20,13 +23,12 @@ class BackstagePassUpdater: ItemUpdater {
     }
 
     func updateQuality() {
-        upgradeQuality()
-
-        if item.sellIn < 11 {
-            upgradeQuality()
-        }
-
-        if item.sellIn < 6 {
+        switch item.sellIn {
+        case 6..<11:
+            upgradeQuality(amount: 2)
+        case 0..<6:
+            upgradeQuality(amount: 3)
+        default:
             upgradeQuality()
         }
     }
