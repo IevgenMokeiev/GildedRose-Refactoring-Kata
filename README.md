@@ -1,3 +1,6 @@
+## Kata rules
+https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.txt
+
 ## Build and test using any of the following
 
 Command line:
