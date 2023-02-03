@@ -16,20 +16,19 @@ public class GildedRose {
     private func updateQuality(for item: Item) {
         let itemType = Self.itemType(from: item)
 
+        // Update quiality before sell in
         switch itemType {
-        case .agedBrie, .backstagePass:
-            if item.quality < 50 {
-                item.quality = item.quality + 1
+        case .agedBrie:
+            upgradeQuality(for: item)
+        case .backstagePass:
+            upgradeQuality(for: item)
 
-                if itemType == .backstagePass {
-                    if item.sellIn < 11 {
-                        upgradeQuality(for: item)
-                    }
+            if item.sellIn < 11 {
+                upgradeQuality(for: item)
+            }
 
-                    if item.sellIn < 6 {
-                        upgradeQuality(for: item)
-                    }
-                }
+            if item.sellIn < 6 {
+                upgradeQuality(for: item)
             }
         case .generic:
             degradeQuality(for: item)
@@ -37,25 +36,22 @@ public class GildedRose {
             break
         }
 
+        // Update sell in
         if itemType != .sulfuras {
             decreaseSellIn(for: item)
         }
 
+        // Update quiality after sell in
         if item.sellIn < 0 {
-            if itemType != .agedBrie {
-                if itemType != .backstagePass {
-                    if item.quality > 0 {
-                        if itemType != .sulfuras {
-                            item.quality = item.quality - 1
-                        }
-                    }
-                } else {
-                    item.quality = item.quality - item.quality
-                }
-            } else {
-                if item.quality < 50 {
-                    item.quality = item.quality + 1
-                }
+            switch itemType {
+            case .agedBrie:
+                upgradeQuality(for: item)
+            case .backstagePass:
+                item.quality = 0
+            case .generic:
+                degradeQuality(for: item)
+            case .sulfuras:
+                break
             }
         }
     }
