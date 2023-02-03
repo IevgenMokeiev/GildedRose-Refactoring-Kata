@@ -17,10 +17,10 @@ class ItemUpdaterFactory {
             return BrieUpdater(item: item)
         case .sulfuras:
             return SulfurasUpdater(item: item)
-        case .generic:
-            return GenericUpdater(item: item)
         case .backstagePass:
             return BackstagePassUpdater(item: item)
+        case .generic:
+            return GenericUpdater(item: item)
         }
     }
 
