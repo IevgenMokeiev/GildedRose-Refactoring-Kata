@@ -24,6 +24,8 @@ class ItemUpdaterFactory {
             return SulfurasUpdater.self
         case .backstagePass:
             return BackstagePassUpdater.self
+        case .conjured:
+            return ConjuredUpdater.self
         case .generic:
             return GenericUpdater.self
         }

@@ -135,4 +135,26 @@ class GildedRoseTests: XCTestCase {
         XCTAssertEqual(item.sellIn, 1)
         XCTAssertEqual(item.quality, 50)
     }
+
+    func test_whenConjured_thenTwiceDegrade() throws {
+        let items = [Item(name: "Conjured Mana Cake", sellIn: 2, quality: 4)]
+        let app = GildedRose(items: items)
+        app.updateQuality()
+
+        let item = app.items[0]
+        XCTAssertEqual(item.name, "Conjured Mana Cake")
+        XCTAssertEqual(item.sellIn, 1)
+        XCTAssertEqual(item.quality, 2)
+    }
+
+    func test_whenConjured_andSellInPassed_thenIncreasedQuialityDegrade() {
+        let items = [Item(name: "Conjured Mana Cake", sellIn: 0, quality: 4)]
+        let app = GildedRose(items: items)
+        app.updateQuality()
+
+        let item = app.items[0]
+        XCTAssertEqual(item.name, "Conjured Mana Cake")
+        XCTAssertEqual(item.sellIn, -1)
+        XCTAssertEqual(item.quality, 0)
+    }
 }
