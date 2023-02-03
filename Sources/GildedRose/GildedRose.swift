@@ -23,28 +23,22 @@ public class GildedRose {
 
                 if itemType == .backstagePass {
                     if item.sellIn < 11 {
-                        if item.quality < 50 {
-                            item.quality = item.quality + 1
-                        }
+                        upgradeQuality(for: item)
                     }
 
                     if item.sellIn < 6 {
-                        if item.quality < 50 {
-                            item.quality = item.quality + 1
-                        }
+                        upgradeQuality(for: item)
                     }
                 }
             }
-        case .sulfuras, .generic:
-            if item.quality > 0 {
-                if itemType != .sulfuras {
-                    item.quality = item.quality - 1
-                }
-            }
+        case .generic:
+            degradeQuality(for: item)
+        case .sulfuras:
+            break
         }
 
         if itemType != .sulfuras {
-            item.sellIn = item.sellIn - 1
+            decreaseSellIn(for: item)
         }
 
         if item.sellIn < 0 {
@@ -65,6 +59,26 @@ public class GildedRose {
             }
         }
     }
+
+    // MARK :- Generic methods
+
+    private func degradeQuality(for item: Item) {
+        if item.quality > 0 {
+            item.quality -= 1
+        }
+    }
+
+    private func decreaseSellIn(for item: Item) {
+        item.sellIn -= 1
+    }
+
+    private func upgradeQuality(for item: Item) {
+        if item.quality < 50 {
+            item.quality += 1
+        }
+    }
+
+    // MARK :- Utility
 
     private static func itemType(from item: Item) -> ItemType {
         return ItemType(rawValue: item.name) ?? .generic
