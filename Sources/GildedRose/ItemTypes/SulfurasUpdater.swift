@@ -1,11 +1,11 @@
 //
-//  SulfurasItemUpdater.swift
+//  SulfurasUpdater.swift
 //  
 //
 //  Created by Yevhen Mokeiev on 03.02.2023.
 //
 
-class SulfurasItemUpdater: ItemUpdater {
+class SulfurasUpdater: ItemUpdater {
 
     let item: Item
 

@@ -1,5 +1,5 @@
 //
-//  BrieItemUpdater.swift
+//  GenericUpdater.swift
 //  
 //
 //  Created by Yevhen Mokeiev on 03.02.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BrieItemUpdater: ItemUpdater {
+class GenericUpdater: ItemUpdater {
 
     let item: Item
 
@@ -16,7 +16,7 @@ class BrieItemUpdater: ItemUpdater {
     }
 
     func updateQuality() {
-        upgradeQuality()
+        degradeQuality()
     }
 
     func updateSellIn() {
@@ -24,6 +24,6 @@ class BrieItemUpdater: ItemUpdater {
     }
 
     func updateQualityExpired() {
-        updateQuality()
+        degradeQuality()
     }
 }

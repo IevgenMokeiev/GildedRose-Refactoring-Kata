@@ -22,15 +22,7 @@ public class GildedRose {
         case .agedBrie:
             itemUpdater.updateQuality()
         case .backstagePass:
-            upgradeQuality(for: item)
-
-            if item.sellIn < 11 {
-                upgradeQuality(for: item)
-            }
-
-            if item.sellIn < 6 {
-                upgradeQuality(for: item)
-            }
+            itemUpdater.updateQuality()
         case .generic:
             itemUpdater.updateQuality()
         case .sulfuras:
@@ -45,9 +37,9 @@ public class GildedRose {
         case .generic:
             itemUpdater.updateSellIn()
         case .sulfuras:
-            itemUpdater.updateQuality()
+            itemUpdater.updateSellIn()
         case .backstagePass:
-            decreaseSellIn(for: item)
+            itemUpdater.updateSellIn()
         }
 
         // Update quiality after sell in
@@ -56,11 +48,11 @@ public class GildedRose {
             case .agedBrie:
                 itemUpdater.updateQualityExpired()
             case .backstagePass:
-                item.quality = 0
+                itemUpdater.updateQualityExpired()
             case .generic:
                 itemUpdater.updateQualityExpired()
             case .sulfuras:
-                itemUpdater.updateQuality()
+                itemUpdater.updateQualityExpired()
             }
         }
     }
@@ -94,13 +86,13 @@ public class GildedRose {
 
         switch itemType {
         case .agedBrie:
-            return BrieItemUpdater(item: item)
+            return BrieUpdater(item: item)
         case .sulfuras:
-            return SulfurasItemUpdater(item: item)
+            return SulfurasUpdater(item: item)
         case .generic:
-            return GenericItemUpdater(item: item)
-        default:
-            return GenericItemUpdater(item: item)
+            return GenericUpdater(item: item)
+        case .backstagePass:
+            return BackstagePassUpdater(item: item)
         }
     }
 }

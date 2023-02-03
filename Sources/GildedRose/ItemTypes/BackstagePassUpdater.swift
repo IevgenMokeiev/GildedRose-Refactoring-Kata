@@ -1,5 +1,5 @@
 //
-//  GenericItemUpdater.swift
+//  BackstagePassUpdater.swift
 //  
 //
 //  Created by Yevhen Mokeiev on 03.02.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GenericItemUpdater: ItemUpdater {
+class BackstagePassUpdater: ItemUpdater {
 
     let item: Item
 
@@ -16,7 +16,15 @@ class GenericItemUpdater: ItemUpdater {
     }
 
     func updateQuality() {
-        degradeQuality()
+        upgradeQuality()
+
+        if item.sellIn < 11 {
+            upgradeQuality()
+        }
+
+        if item.sellIn < 6 {
+            upgradeQuality()
+        }
     }
 
     func updateSellIn() {
@@ -24,6 +32,7 @@ class GenericItemUpdater: ItemUpdater {
     }
 
     func updateQualityExpired() {
-        degradeQuality()
+        item.quality = 0
     }
 }
+
